@@ -1,0 +1,42 @@
+﻿  main.cpp
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Sphere.h(20,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\main.cpp(21,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\main.cpp(25,18): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(58,24): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(54): message : while compiling class template member function 'EPIC::Vec3<int> &EPIC::Vec3<int>::operator *(const float &)'
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\main.cpp(25): message : see reference to function template instantiation 'EPIC::Vec3<int> &EPIC::Vec3<int>::operator *(const float &)' being compiled
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Color.h(7): message : see reference to class template instantiation 'EPIC::Vec3<int>' being compiled
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(59,24): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(60,24): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(10,15): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(9): message : while compiling class template member function 'EPIC::Vec3<int>::Vec3(void)'
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(33): message : see reference to function template instantiation 'EPIC::Vec3<int>::Vec3(void)' being compiled
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(31): message : while compiling class template member function 'EPIC::Vec3<int> &EPIC::Vec3<int>::operator +(const EPIC::Vec3<int> &)'
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\main.cpp(25): message : see reference to function template instantiation 'EPIC::Vec3<int> &EPIC::Vec3<int>::operator +(const EPIC::Vec3<int> &)' being compiled
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(11,15): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.cpp(12,15): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+  EpicTracer.vcxproj -> C:\Users\mbeni\source\repos\EpicTracer\ bin\x64\EpicTracer.exe

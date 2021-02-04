@@ -10,17 +10,17 @@
 #define HEIGHT 480
 #define WIDTH 640
 
-EPIC::Sphere s(EPIC::Vec3<float>(0, 0, -10), 0.1f);
+EPIC::Sphere s(EPIC::Vec3<float>(0.0f, 0.0f, -1.0f), 0.5f);
 
-EPIC::Color color(const EPIC::Ray& ray){
-	std::cout << ray.direction();
+EPIC::Color color(EPIC::Ray& ray){
+	//std::cout << ray.direction().norm();
 	if(s.hit_sphere(ray)){
-		return EPIC::Color("FF0000");
+		return EPIC::Color("00FF00");
 	}
 
 	float t = 0.5*(ray.direction()[1]+1.0);
 	auto white = EPIC::Color("FFFFFF");
-	auto main = EPIC::Color("E64A19");
+	auto main = EPIC::Color("03a9f4");
 
 	return main*(1.0-t) + white*t;
 }
@@ -44,19 +44,31 @@ int main(){
 
 
 
-	EPIC::Vec3<float> lowerLeftCorner(-2.0f, -1.0f, -1.0f);
-	EPIC::Vec3<float> horizontal(4.0f, 0.0f, 0.0f);
+	EPIC::Vec3<float> lowerLeftCorner(-1.0f, -1.0f, 0.0f);
+	EPIC::Vec3<float> horizontal(2.0f, 0.0f, 0.0f);
 	EPIC::Vec3<float> vertical(0.0f, 2.0f, 0.0f);
-	EPIC::Vec3<float> camera(0.0f, 0.0f, 0.0f);
+	EPIC::Vec3<float> camera(0.0f, 0.0f, -5.0f);
 
 	EPIC::Image img(WIDTH, HEIGHT);
 
+	float aspectRatio = ((float)WIDTH)/((float)HEIGHT);
+
+	float xmin = -1.0f;
+	float xmax = +1.0f;
+	float deltaX = (float)(xmax-xmin)/(float)(WIDTH-1);
+
+	float ymin = -1.0f/aspectRatio;
+	float ymax = +1.0f/aspectRatio;
+	float deltaY = (float)(ymax-ymin)/(float)(HEIGHT-1);
+
+
+
 	for(int i = 0; i<HEIGHT; i++){
+		float y = ymin+i*deltaY;;
 		for(int j = 0; j<WIDTH; j++){
+			float x = xmin+j*deltaX;
 			
-			float x = (float)j/(float)WIDTH;
-			float y = (float)i/(float)HEIGHT;
-			EPIC::Ray* ray = new EPIC::Ray(camera, (lowerLeftCorner + horizontal*x+vertical*y));
+			EPIC::Ray* ray = new EPIC::Ray(camera, EPIC::Vec3<float>(x, y, 0.0f) - camera);
 			*(img.getPixel(i, j)) = color(*ray);
 			//std::cout<<*(img.getPixel(i, j));
 			delete ray;
