@@ -28,7 +28,7 @@ namespace EPIC{
 
 
 	template<typename T>
-	Vec3<T>& Vec3<T>::operator+(const Vec3<T>& v){
+	const Vec3<T>& Vec3<T>::operator+(const Vec3<T>& v) const {
 
 		Vec3<T>* res = new Vec3<T>(); // empty
 
@@ -40,7 +40,7 @@ namespace EPIC{
 	}
 
 	template<typename T>
-	Vec3<T>& Vec3<T>::operator-(const Vec3<T>& v){
+	const Vec3<T>& Vec3<T>::operator-(const Vec3<T>& v)const {
 		Vec3<T>* res = new Vec3<T>(); // empty
 
 		(*res)[0] = m_data[0]-v[0];
@@ -51,7 +51,7 @@ namespace EPIC{
 	}
 
 	template<typename T>
-	Vec3<T>& Vec3<T>::operator*(const float& k){
+	const Vec3<T>& Vec3<T>::operator*(const float& k) const{
 
 		Vec3<T>* res = new Vec3<T>(); // empty
 
@@ -63,7 +63,7 @@ namespace EPIC{
 
 	}
 	template<typename T>
-	Vec3<T>& Vec3<T>::operator/(const float& k){
+	const Vec3<T>& Vec3<T>::operator/(const float& k) const{
 
 		if(k==0){
 			return *this;
@@ -78,7 +78,7 @@ namespace EPIC{
 		return *res;
 	}
 	template<typename T>
-	Vec3<T>& Vec3<T>::operator+=(const Vec3<T>& v){
+	const Vec3<T>& Vec3<T>::operator+=(const Vec3<T>& v){
 	
 		m_data[0] += v[0];
 		m_data[1] += v[1];
@@ -89,7 +89,7 @@ namespace EPIC{
 	}
 
 	template<typename T>
-	Vec3<T>& Vec3<T>::operator-=(const Vec3<T>& v){
+	const Vec3<T>& Vec3<T>::operator-=(const Vec3<T>& v){
 	
 		m_data[0] -= v[0];
 		m_data[1] -= v[1];
@@ -100,7 +100,7 @@ namespace EPIC{
 	}
 
 	template<typename T>
-	Vec3<T>& Vec3<T>::operator*=(const float& k){
+	const Vec3<T>& Vec3<T>::operator*=(const float& k){
 	
 		m_data[0] *= k;
 		m_data[1] *= k;
@@ -112,7 +112,7 @@ namespace EPIC{
 
 
 	template<typename T>
-	Vec3<T>& Vec3<T>::cross(const Vec3<T>& v){
+	const Vec3<T>& Vec3<T>::cross(const Vec3<T>& v) const{
 		
 		Vec3<T>* res = new Vec3<T>(); // empty
 
@@ -126,7 +126,7 @@ namespace EPIC{
 
 
 	template<typename T>
-	float Vec3<T>::dot(const Vec3<T>& v){
+	float Vec3<T>::dot(const Vec3<T>& v) const{
 		return m_data[0]*v[0]+
 			   m_data[1]*v[1]+
 			   m_data[2]*v[2];
@@ -145,14 +145,14 @@ namespace EPIC{
 	}
 
 	template<typename T>
-	float Vec3<T>::norm(){
+	float Vec3<T>::norm() const{
 		return sqrt(m_data[0]*m_data[0] +
 					m_data[1]*m_data[1] +
 					m_data[2]*m_data[2]);
 	}
 
 	template<typename T>
-	Vec3<T>& Vec3<T>::normalize(){
+	const Vec3<T>& Vec3<T>::normalize() const{
 		return *this/this->norm();
 	}
 

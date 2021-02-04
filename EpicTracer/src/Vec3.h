@@ -11,22 +11,22 @@ namespace EPIC{
 		Vec3<T>(T x, T y, T z);
 		Vec3<T>(const Vec3& v);
 
-		Vec3<T>& operator+(const Vec3<T>& v);
-		Vec3<T>& operator-(const Vec3<T>& v);
-		Vec3<T>& operator*(const float& k);
-		Vec3<T>& operator/(const float& k);
-		Vec3<T>& operator+=(const Vec3<T>& v);
-		Vec3<T>& operator-=(const Vec3<T>& v);
-		Vec3<T>& operator*=(const float& v);
+		const Vec3<T>& operator+(const Vec3<T>& v) const;
+		const Vec3<T>& operator-(const Vec3<T>& v) const;
+		const Vec3<T>& operator*(const float& k) const;
+		const Vec3<T>& operator/(const float& k) const;
+		const Vec3<T>& operator+=(const Vec3<T>& v);
+		const Vec3<T>& operator-=(const Vec3<T>& v);
+		const Vec3<T>& operator*=(const float& v);
 
 		T& operator[](int index);
 		T operator[](int index) const;
 
-		Vec3<T>& cross(const Vec3<T>& v);
+		const Vec3<T>& cross(const Vec3<T>& v) const;
 
-		float norm();
-		Vec3<T>& normalize();
-		float dot(const Vec3<T>& v);
+		float norm()  const;
+		const Vec3<T>& normalize() const;
+		float dot(const Vec3<T>& v) const;
 		 
 
 		private:

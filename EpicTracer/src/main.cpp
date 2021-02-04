@@ -14,8 +14,9 @@ EPIC::Sphere s(EPIC::Vec3<float>(0.0f, 0.0f, -1.0f), 0.5f);
 
 EPIC::Color color(EPIC::Ray& ray){
 	//std::cout << ray.direction().norm();
-	if(s.hit_sphere(ray)){
-		return EPIC::Color("00FF00");
+	EPIC::HitRecord rec;
+	if(s.hit(ray, 0.0f, 10000.0f, rec)){
+		return EPIC::Color("FFC107");
 	}
 
 	float t = 0.5*(ray.direction()[1]+1.0);

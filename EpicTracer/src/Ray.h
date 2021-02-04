@@ -11,8 +11,8 @@ namespace EPIC{
 			m_origin = origin;
 		}
 
-		Vec3<float>& origin(){ return m_origin; }
-		Vec3<float>& direction(){ return m_direction; }
+		const Vec3<float>& origin() const { return m_origin; }
+		const Vec3<float>& direction() const { return m_direction; }
 
 		Vec3<float> pointAt(float dist){
 			return m_direction*dist+m_origin;
