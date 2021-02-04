@@ -7,19 +7,24 @@
 #include "Ray.h"
 #include "Sphere.h"
 #include "Object.h"
-
-#define HEIGHT 480
-#define WIDTH 640
+#include "Camera.h"
 
 
 
 
-EPIC::Color color(EPIC::Ray& ray, const EPIC::HitList& world){
+EPIC::Color color(const EPIC::Ray& ray, const EPIC::HitList& world, int depth){
 	//std::cout << ray.direction().norm();
+
+	if(depth<=0){
+		return EPIC::Color("000000");
+	}
+
 	EPIC::HitRecord rec;
-	if(world.hit(ray, 0.0f, 10000.0f, rec)){
+	if(world.hit(ray, 0.0001f, 100000.0f, rec)){
 		//return EPIC::Color("FFC107");
-		return EPIC::Color(((EPIC::Vec3<float>(1.0f, 1.0f, 1.0f) + rec.normal))*0.5f);
+		//return EPIC::Color(((EPIC::Vec3<float>(1.0f, 1.0f, 1.0f) + rec.normal))*0.5f);
+		auto p = rec.position + rec.normal + EPIC::Vec3<float>::random_unit_sphere();
+		return color(EPIC::Ray(rec.position, rec.position-p), world, depth-1)*0.5f;
 	}
 
 	float t = 0.5*(ray.direction()[1]+1.0);
@@ -53,10 +58,12 @@ int main(){
 
 
 	//camera
-	EPIC::Vec3<float> lowerLeftCorner(-1.0f, -1.0f, 0.0f);
-	EPIC::Vec3<float> horizontal(2.0f, 0.0f, 0.0f);
-	EPIC::Vec3<float> vertical(0.0f, 2.0f, 0.0f);
-	EPIC::Vec3<float> camera(0.0f, 0.0f, -10.0f);
+	//EPIC::Vec3<float> lowerLeftCorner(-1.0f, -1.0f, 0.0f);
+	//EPIC::Vec3<float> horizontal(2.0f, 0.0f, 0.0f);
+	//EPIC::Vec3<float> vertical(0.0f, 2.0f, 0.0f);
+	//EPIC::Vec3<float> camera(0.0f, 0.0f, -10.0f);
+	EPIC::Camera camera(WIDTH, HEIGHT);
+
 
 	EPIC::Image img(WIDTH, HEIGHT);
 
@@ -73,15 +80,12 @@ int main(){
 
 
 	for(int i = 0; i<HEIGHT; i++){
-		float y = ymin+i*deltaY;;
 		for(int j = 0; j<WIDTH; j++){
-			float x = xmin+j*deltaX;
-			
-			EPIC::Ray* ray = new EPIC::Ray(camera, EPIC::Vec3<float>(x, y, 0.0f) - camera);
-
-			*(img.getPixel(i, j)) = color(*ray, world);
+			for(int sample = 0; sample<SAMPLES_PER_PIXEL; sample++){
+				auto ray = camera.getRay(i, j);
+				*(img.getPixel(i, j)) += color(*ray, world, MAX_DEPTH);
+			}
 			//std::cout<<*(img.getPixel(i, j));
-			delete ray;
 		}
 	}
 

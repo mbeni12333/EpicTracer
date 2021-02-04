@@ -7,7 +7,7 @@
 
 
 int clamp(float c){
-	int o = c*255;
+	int o = static_cast<int>(c*255);
 	o = MAX(0, o);
 	return MIN(o, 255);
 }
@@ -15,9 +15,7 @@ int clamp(float c){
 
 namespace EPIC{
 
-	Color::Color():Vec3<int>(std::stoi(DEFAULT_COLOR.substr(0, 2), 0, 16),
-							 std::stoi(DEFAULT_COLOR.substr(2, 2), 0, 16),
-							 std::stoi(DEFAULT_COLOR.substr(4, 2), 0, 16)){}
+	Color::Color():Vec3<int>(0, 0, 0){}
 
 	Color::Color(const Vec3<int>& v):Vec3<int>(v){}
 	Color::Color(const Vec3<float>& v):Vec3<int>(){

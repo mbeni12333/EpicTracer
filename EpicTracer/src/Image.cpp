@@ -25,7 +25,7 @@ namespace EPIC{
 
 
 		for(auto& c:m_pixels){
-			file<<c<<std::endl;
+			file<<*(c.gammaCorrect())<<std::endl;
 		}
 
 		return true;
