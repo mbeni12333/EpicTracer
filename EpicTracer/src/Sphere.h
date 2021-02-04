@@ -16,7 +16,7 @@ namespace EPIC{
 
 
 		virtual const Vec3<float>& normalAt(const Vec3<float>& point) const {
-			return (Object::m_position-point).normalize();
+			return (Object::m_position - point).normalize();
 		}
 
 
@@ -25,7 +25,7 @@ namespace EPIC{
 		}
 
 
-		bool Hitable::hit(const Ray& ray, float t_min, float t_max, HitRecord& record) const{
+		virtual bool hit(const Ray& ray, float t_min, float t_max, HitRecord& record) const{
 
 			Vec3<float> sphereToRay = ray.origin()-m_position;
 			//std::cout<<"Sphere to ray: " << sphereToRay;
@@ -35,8 +35,25 @@ namespace EPIC{
 			//std::cout<<"c = "<<c<<std::endl;
 			float delta = b*b-4*c;
 			//std::cout<<"delta = "<<delta<<std::endl;
-			return (delta>0);
+			if(delta<0)
+				return false;
 
+			auto sqrt_d = sqrt(delta);
+			auto root = (float)(-b-sqrt_d)/2.0f;
+
+			if(root < t_min||root > t_max){
+				root = (float)(-b+sqrt_d)/2.0f;
+				if(root < t_min||root > t_max){
+					return false;
+				}
+			}
+
+			record.t = root;
+			record.position = ray.pointAt(root);
+			record.normal = normalAt(record.position);
+			
+
+			return true;
 		}
 
 

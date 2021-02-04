@@ -14,7 +14,7 @@ namespace EPIC{
 		const Vec3<float>& origin() const { return m_origin; }
 		const Vec3<float>& direction() const { return m_direction; }
 
-		Vec3<float> pointAt(float dist){
+		const Vec3<float>& pointAt(float dist) const{
 			return m_direction*dist+m_origin;
 		}
 	

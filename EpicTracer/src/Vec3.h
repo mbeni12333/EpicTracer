@@ -29,7 +29,7 @@ namespace EPIC{
 		float dot(const Vec3<T>& v) const;
 		 
 
-		private:
+		protected:
 		T m_data[3];
 
 

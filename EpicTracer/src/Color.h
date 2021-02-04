@@ -9,6 +9,7 @@ namespace EPIC{
 		Color();
 		Color(int r, int g, int b);
 		Color(const Vec3<int>& v);
+		Color(const Vec3<float>& v);
 		Color(const std::string& hex);
 
 		
