@@ -12,8 +12,10 @@ namespace EPIC{
 
 
 			origin[0] = 0.0f;
-			origin[1] = -0.5f;
-			origin[2] = -10.0f;
+			origin[1] = 0.0f;
+			origin[2] = -4.0f;
+			origin[2] = -4.0f;
+			origin[2] = -4.0f;
 
 			viewPortHeight = height;
 			viewPortWidth = width;
@@ -30,7 +32,7 @@ namespace EPIC{
 			viewPortY[2] = (float)(viewPortY[1]-viewPortY[0])/(float)(height-1); // deltaY
 
 
-			fov = -5.0f;
+			fov = 0.0f;
 
 		}
 

@@ -23,7 +23,7 @@ EPIC::Color color(const EPIC::Ray& ray, const EPIC::HitList& world, int depth){
 	if(world.hit(ray, 0.0001f, 100000.0f, rec)){
 		//return EPIC::Color("FFC107");
 		//return EPIC::Color(((EPIC::Vec3<float>(1.0f, 1.0f, 1.0f) + rec.normal))*0.5f);
-		auto p = rec.position + rec.normal + EPIC::Vec3<float>::random_unit_sphere();
+		auto p = rec.position + rec.normal + EPIC::Vec3<float>::random_unit_vector();
 		return color(EPIC::Ray(rec.position, rec.position-p), world, depth-1)*0.5f;
 	}
 

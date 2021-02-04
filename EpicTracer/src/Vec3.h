@@ -38,6 +38,10 @@ namespace EPIC{
 			}
 		}
 
+		inline static Vec3<T> random_unit_vector(){
+			return random_unit_sphere().normalize();
+		}
+
 		T& operator[](int index);
 		T operator[](int index) const;
 
