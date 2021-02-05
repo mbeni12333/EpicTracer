@@ -22,24 +22,24 @@ namespace EPIC{
 		const Vec3<T>& operator*=(const float& v);
 
 
-		inline static Vec3<T> random(){
+		inline static const Vec3<T>& random(){
 			return Vec3<T>(random_double(), random_double(), random_double());
 		}
 
-		inline static Vec3<T> random(float min, float max){
-			return Vec3<T>(random_double(min, max), random_double(min, max), random_double(min, max));
+		inline static std::shared_ptr<Vec3<T>> random(float min, float max){
+			return std::make_shared<Vec3<T>>(random_double(min, max), random_double(min, max), random_double(min, max));
 		}
 
-		inline static Vec3<T> random_unit_sphere(){
+		inline static std::shared_ptr<Vec3<T>> random_unit_sphere(){
 			while(true){
 				auto p = random(-1.0f, 1.0f);
-				if(p.norm()>=1) continue;
+				if(p->norm()>=1) continue;
 				return p;
 			}
 		}
 
-		inline static Vec3<T> random_unit_vector(){
-			return random_unit_sphere().normalize();
+		inline static const Vec3<T>& random_unit_vector(){
+			return random_unit_sphere()->normalize();
 		}
 
 		T& operator[](int index);

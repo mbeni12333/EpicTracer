@@ -31,8 +31,17 @@ EPIC::Color color(const EPIC::Ray& ray, const EPIC::HitList& world, int depth){
 	auto white = EPIC::Color("FFFFFF");
 	auto main = EPIC::Color("03a9f4");
 
+
 	return main*(1.0-t) + white*t;
 }
+
+
+//void raysamples(int i, int j, EPIC::Color* pixel, const EPIC::Camera& camera, const EPIC::HitList& world){
+//	for(int sample = 0; sample<SAMPLES_PER_PIXEL; sample++){
+//		auto ray = camera.getRay(i, j);
+//		*pixel += color(*ray, world, MAX_DEPTH); 
+//	}
+//}
 
 int main(){
 
@@ -78,13 +87,20 @@ int main(){
 	float deltaY = (float)(ymax-ymin)/(float)(HEIGHT-1);
 
 
-
+    #pragma omp parallel for
 	for(int i = 0; i<HEIGHT; i++){
 		for(int j = 0; j<WIDTH; j++){
+		    //#pragma omp parallel for 
 			for(int sample = 0; sample<SAMPLES_PER_PIXEL; sample++){
 				auto ray = camera.getRay(i, j);
 				*(img.getPixel(i, j)) += color(*ray, world, MAX_DEPTH);
 			}
+
+			 
+
+			/*if(i%200 == 0)
+			std::cout<<"i = "<<i<<"; j= "<<j<<std::endl;*/
+			//raysamples(i, j, (img.getPixel(i, j)), camera, world);
 			//std::cout<<*(img.getPixel(i, j));
 		}
 	}
