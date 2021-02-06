@@ -6,21 +6,13 @@
 namespace EPIC{
 
 	template<typename T>
-	Vec3<T>::Vec3(){
-		m_data[0] = 0.0f;
-		m_data[1] = 0.0f;
-		m_data[2] = 0.0f;
-	}
+	Vec3<T>::Vec3():m_data{0.0f, 0.0f, 0.0f}{}
 
 	template<typename T>
-	Vec3<T>::Vec3(T x, T y, T z){
-		m_data[0] = x;
-		m_data[1] = y;
-		m_data[2] = z;
-	}
+	Vec3<T>::Vec3(T x, T y, T z) : m_data{x, y, z}{}
 
 	template<typename T>
-	Vec3<T>::Vec3(const Vec3& v){
+	Vec3<T>::Vec3(const Vec3<T>& v){
 		m_data[0] = v[0];
 		m_data[1] = v[1];
 		m_data[2] = v[2];
@@ -28,99 +20,109 @@ namespace EPIC{
 
 
 	template<typename T>
-	const Vec3<T>& Vec3<T>::operator+(const Vec3<T>& v) const {
+	std::shared_ptr<Vec3<T>> Vec3<T>::operator+(const Vec3<T>& v) const {
 
-		Vec3<T>* res = new Vec3<T>(); // empty
+		auto res =std::make_shared<Vec3<T>>(m_data[0]+v[0],
+											m_data[1]+v[1],
+											m_data[2]+v[2]);
 
-		(*res)[0] = m_data[0]+v[0];
-		(*res)[1] = m_data[1]+v[1];
-		(*res)[2] = m_data[2]+v[2];
-
-		return *res;
+		return res;
 	}
 
 	template<typename T>
-	const Vec3<T>& Vec3<T>::operator-(const Vec3<T>& v)const {
-		Vec3<T>* res = new Vec3<T>(); // empty
+	std::shared_ptr<Vec3<T>> Vec3<T>::operator-(const Vec3<T>& v)const {
+		auto res =std::make_shared<Vec3<T>>(); // empty
 
 		(*res)[0] = m_data[0]-v[0];
 		(*res)[1] = m_data[1]-v[1];
 		(*res)[2] = m_data[2]-v[2];
 
-		return *res;
+		return res;
 	}
 
 	template<typename T>
-	const Vec3<T>& Vec3<T>::operator*(const float& k) const{
+	std::shared_ptr<Vec3<T>> Vec3<T>::operator*(const float& k) const{
 
-		Vec3<T>* res = new Vec3<T>(); // empty
+		auto res =std::make_shared<Vec3<T>>(); // empty
 
 		(*res)[0] = m_data[0]*k;
 		(*res)[1] = m_data[1]*k;
 		(*res)[2] = m_data[2]*k;
 
-		return *res;
+		return res;
 
 	}
 	template<typename T>
-	const Vec3<T>& Vec3<T>::operator/(const float& k) const{
+	std::shared_ptr<Vec3<T>> Vec3<T>::operator/(const float& k) const{
 
 		if(k==0){
-			return *this;
+			return this;
 		}
 
-		Vec3<T>* res = new Vec3<T>(); // empty
+		auto res = std::make_shared<Vec3<T>>(); // empty
 
 		(*res)[0] = m_data[0]/k;
 		(*res)[1] = m_data[1]/k;
 		(*res)[2] = m_data[2]/k;
 
-		return *res;
+		return res;
 	}
 	template<typename T>
-	const Vec3<T>& Vec3<T>::operator+=(const Vec3<T>& v){
+	std::shared_ptr<Vec3<T>> Vec3<T>::operator+=(const Vec3<T>& v){
 	
-		m_data[0] += v[0];
+
+		auto res = std::make_shared<Vec3<T>>(); // empty
+
+		(*res)[0] = m_data[0]+v[0];
+		(*res)[1] = m_data[1]+v[1];
+		(*res)[2] = m_data[2]+v[2];
+
+		return res;
+
+		/*m_data[0] += v[0];
 		m_data[1] += v[1];
 		m_data[2] += v[2];
 
-		return *this;
+		return std::dynamic_pointer_cast<<Vec3<T>>(this);*/
 
 	}
 
 	template<typename T>
-	const Vec3<T>& Vec3<T>::operator-=(const Vec3<T>& v){
+	std::shared_ptr<Vec3<T>> Vec3<T>::operator-=(const Vec3<T>& v){
 	
-		m_data[0] -= v[0];
-		m_data[1] -= v[1];
-		m_data[2] -= v[2];
+		auto res = std::make_shared<Vec3<T>>(); // empty
 
-		return *this;
+		(*res)[0] = m_data[0]-v[0];
+		(*res)[1] = m_data[1]-v[1];
+		(*res)[2] = m_data[2]-v[2];
+
+		return res;
 
 	}
 
 	template<typename T>
-	const Vec3<T>& Vec3<T>::operator*=(const float& k){
+	std::shared_ptr<Vec3<T>> Vec3<T>::operator*=(const float& k){
 	
-		m_data[0] *= k;
-		m_data[1] *= k;
-		m_data[2] *= k;
+		auto res = std::make_shared<Vec3<T>>(); // empty
 
-		return *this;
+		(*res)[0] = m_data[0]*k;
+		(*res)[1] = m_data[1]*k;
+		(*res)[2] = m_data[2]*k;
 
+		return res;
 	}
 
 
 	template<typename T>
-	const Vec3<T>& Vec3<T>::cross(const Vec3<T>& v) const{
+	std::shared_ptr<Vec3<T>> Vec3<T>::cross(const Vec3<T>& v) const{
 		
-		Vec3<T>* res = new Vec3<T>(); // empty
+		auto res = std::make_shared<Vec3<T>>(); // empty
 
 		(*res)[0] = m_data[1]*v[2]-m_data[2]*v[1];
 		(*res)[1] = m_data[2]*v[0]-m_data[0]*v[2];
 		(*res)[2] = m_data[0]*v[1]-m_data[1]*v[0];
 
-		return *res;
+		return res;
 	}
 
 
@@ -146,14 +148,21 @@ namespace EPIC{
 
 	template<typename T>
 	float Vec3<T>::norm() const{
-		return sqrt(m_data[0]*m_data[0] +
-					m_data[1]*m_data[1] +
-					m_data[2]*m_data[2]);
+
+
+		return sqrt((m_data[0])*(m_data[0])+
+					(m_data[1])*(m_data[1])+
+					(m_data[2])*(m_data[2]));
 	}
 
 	template<typename T>
-	const Vec3<T>& Vec3<T>::normalize() const{
-		return *this/this->norm();
+	std::shared_ptr<Vec3<T>> Vec3<T>::normalize() {
+		float x = m_data[0]/this->norm();
+		float y = m_data[1]/this->norm();
+		float z = m_data[2]/this->norm();
+		auto res = std::make_shared<Vec3<T>>(x, y, z);
+
+		return res;
 	}
 
 }

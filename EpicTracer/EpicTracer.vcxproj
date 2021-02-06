@@ -72,23 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir) bin/$(PlatformTarget)/</OutDir>
-    <IntDir>$(SolutionDir) bin/int/$(PlatformTarget)/</IntDir>
+    <OutDir>$(SolutionDir) bin/ $(Configuration)/$(PlatformTarget)/</OutDir>
+    <IntDir>$(SolutionDir) bin/int/$(Configuration)/$(PlatformTarget)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir) bin/$(PlatformTarget)/</OutDir>
-    <IntDir>$(SolutionDir) bin/int/$(PlatformTarget)/</IntDir>
+    <OutDir>$(SolutionDir) bin/ $(Configuration)/$(PlatformTarget)/</OutDir>
+    <IntDir>$(SolutionDir) bin/int/$(Configuration)/$(PlatformTarget)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir) bin/$(PlatformTarget)/</OutDir>
-    <IntDir>$(SolutionDir) bin/int/$(PlatformTarget)/</IntDir>
+    <OutDir>$(SolutionDir) bin/ $(Configuration)/$(PlatformTarget)/</OutDir>
+    <IntDir>$(SolutionDir) bin/int/$(Configuration)/$(PlatformTarget)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir) bin/$(PlatformTarget)/</OutDir>
-    <IntDir>$(SolutionDir) bin/int/$(PlatformTarget)/</IntDir>
+    <OutDir>$(SolutionDir) bin/ $(Configuration)/$(PlatformTarget)/</OutDir>
+    <IntDir>$(SolutionDir) bin/int/$(Configuration)/$(PlatformTarget)/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -151,14 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Sphere.cpp" />
-    <ClCompile Include="src\Material.cpp" />
-    <ClCompile Include="src\LightSource.cpp" />
-    <ClCompile Include="src\Object.cpp" />
     <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Image.cpp" />
-    <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\Point.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Vec3.cpp" />

@@ -13,21 +13,23 @@ namespace EPIC{
 		Vec3<T>(T x, T y, T z);
 		Vec3<T>(const Vec3& v);
 
-		const Vec3<T>& operator+(const Vec3<T>& v) const;
-		const Vec3<T>& operator-(const Vec3<T>& v) const;
-		const Vec3<T>& operator*(const float& k) const;
-		const Vec3<T>& operator/(const float& k) const;
-		const Vec3<T>& operator+=(const Vec3<T>& v);
-		const Vec3<T>& operator-=(const Vec3<T>& v);
-		const Vec3<T>& operator*=(const float& v);
+		std::shared_ptr<Vec3<T>> operator+(const Vec3<T>& v) const;
+		std::shared_ptr<Vec3<T>> operator-(const Vec3<T>& v) const;
+		std::shared_ptr<Vec3<T>> operator*(const float& k) const;
+		std::shared_ptr<Vec3<T>> operator/(const float& k) const;
+		std::shared_ptr<Vec3<T>> operator+=(const Vec3<T>& v);
+		std::shared_ptr<Vec3<T>> operator-=(const Vec3<T>& v);
+		std::shared_ptr<Vec3<T>> operator*=(const float& v);
 
 
-		inline static const Vec3<T>& random(){
-			return Vec3<T>(random_double(), random_double(), random_double());
+		inline static std::shared_ptr<Vec3<T>> random(){
+			return std::make_unique<Vec3<T>>(random_double(), random_double(), random_double());
 		}
 
 		inline static std::shared_ptr<Vec3<T>> random(float min, float max){
-			return std::make_shared<Vec3<T>>(random_double(min, max), random_double(min, max), random_double(min, max));
+			return std::make_shared<Vec3<T>>(random_double(min, max),
+											 random_double(min, max),
+											 random_double(min, max));
 		}
 
 		inline static std::shared_ptr<Vec3<T>> random_unit_sphere(){
@@ -38,17 +40,17 @@ namespace EPIC{
 			}
 		}
 
-		inline static const Vec3<T>& random_unit_vector(){
+		inline static std::shared_ptr<Vec3<T>> random_unit_vector(){
 			return random_unit_sphere()->normalize();
 		}
 
 		T& operator[](int index);
 		T operator[](int index) const;
 
-		const Vec3<T>& cross(const Vec3<T>& v) const;
+		std::shared_ptr<Vec3<T>> cross(const Vec3<T>& v) const;
 
 		float norm()  const;
-		const Vec3<T>& normalize() const;
+		std::shared_ptr<Vec3<T>> normalize();
 		float dot(const Vec3<T>& v) const;
 		 
 
@@ -61,7 +63,7 @@ namespace EPIC{
 
 
 	template<typename T>
-	std::ostream& operator<< (std::ostream& out, Vec3<T>& v){
+	std::ostream& operator<< (std::ostream& out, const Vec3<T>& v){
 		out<<v[0]<<" "<<v[1]<<" "<<v[2]<<std::endl;
 		return out;
 	}

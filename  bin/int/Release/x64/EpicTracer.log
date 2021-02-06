@@ -1,0 +1,44 @@
+﻿  Camera.cpp
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Camera.cpp(32,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Camera.cpp(33,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Sphere.cpp
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Sphere.h(32,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Image.cpp
+  Point.cpp
+  main.cpp
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Sphere.h(32,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\main.cpp(70,11): warning C4834: discarding return value of function with 'nodiscard' attribute
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\xmemory(230,33): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\memory(1563): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,double,double,double>(_Ty &,double &&,double &&,double &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=EPIC::Vec3<float>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\memory(2207): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<double,double,double>(double &&,double &&,double &&)' being compiled
+          with
+          [
+              _Ty=EPIC::Vec3<float>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\memory(2208): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<double,double,double>(double &&,double &&,double &&)' being compiled
+          with
+          [
+              _Ty=EPIC::Vec3<float>
+          ]
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.h(32): message : see reference to function template instantiation 'std::shared_ptr<EPIC::Vec3<float>> std::make_shared<EPIC::Vec3<float>,double,double,double>(double &&,double &&,double &&)' being compiled
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.h(29): message : while compiling class template member function 'std::shared_ptr<EPIC::Vec3<float>> EPIC::Vec3<float>::random(float,float)'
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Vec3.h(37): message : see reference to function template instantiation 'std::shared_ptr<EPIC::Vec3<float>> EPIC::Vec3<float>::random(float,float)' being compiled
+C:\Users\mbeni\source\repos\EpicTracer\EpicTracer\src\Color.h(16): message : see reference to class template instantiation 'EPIC::Vec3<float>' being compiled
+  Vec3.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 472 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  EpicTracer.vcxproj -> C:\Users\mbeni\source\repos\EpicTracer\ bin\ Release\x64\EpicTracer.exe

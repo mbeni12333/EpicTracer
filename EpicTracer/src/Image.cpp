@@ -24,8 +24,8 @@ namespace EPIC{
 		file<<MAX_PIXEL_VALUE<<std::endl;
 
 
-		for(auto& c:m_pixels){
-			file<<*(c.gammaCorrect())<<std::endl;
+		for(auto c:m_pixels){
+			file<<*c<<std::endl;
 		}
 
 		return true;
@@ -33,8 +33,8 @@ namespace EPIC{
 
 
 
-	Color* Image::getPixel(int row, int col){
-		return &m_pixels[m_width*row+col];
+	std::shared_ptr<Color>& Image::getPixel(int row, int col){
+		return m_pixels[m_width*row+col];
 	}
 
 	
