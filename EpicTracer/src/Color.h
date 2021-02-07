@@ -45,9 +45,9 @@ namespace EPIC{
 			float g = sqrt(scale*v[1]);
 			float b = sqrt(scale*v[2]);
 
-			out<<static_cast<int>(255.0f*clamp(r, 0.0f, 0.9999f))<<" "
-			   <<static_cast<int>(255.0f*clamp(g, 0.0f, 0.9999f))<<" "
-			   <<static_cast<int>(255.0f*clamp(b, 0.0f, 0.9999f))<<" ";
+			out<<static_cast<int>(255.0f*clamp(r, 0.0f, 1.0f))<<" "
+			   <<static_cast<int>(255.0f*clamp(g, 0.0f, 1.0f))<<" "
+			   <<static_cast<int>(255.0f*clamp(b, 0.0f, 1.0f))<<" ";
 			return out;
 		}
 		

@@ -9,7 +9,7 @@ namespace EPIC{
 	class Sphere: virtual public Object, public Hitable{
 
 		public:
-		Sphere(std::shared_ptr<Vec3<float>> origin, float radius){
+		Sphere(std::shared_ptr<Vec3<float>> origin, float radius, std::shared_ptr<Color> c):m_c(c){
 			Object::m_position = origin;
 			m_radius = radius;
 		}
@@ -51,14 +51,16 @@ namespace EPIC{
 			record.t = root;
 			record.position = ray->pointAt(root);
 			record.normal = normalAt(*record.position);
-			
+			record.c = m_c;
 
 			return true;
 		}
 
+		inline std::shared_ptr<Color> getColor(){ return m_c; };
 
 		private:
 		float m_radius;
+		std::shared_ptr<Color> m_c;
 	};
 }
 

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Vec3.h"
-#include "Vec3.cpp"
 #include "Image.h"
 #include "Color.h"
 #include "core.h"
@@ -23,17 +22,18 @@ std::shared_ptr<EPIC::Color> rayTrace(std::shared_ptr<EPIC::Ray> ray, const EPIC
 	if(world.hit(ray, 0.0001f, 100000.0f, rec)){
 		//return EPIC::Color("FFC107");
 		//return std::make_shared<EPIC::Color>(*((*(EPIC::Vec3<float>(1.0f, 1.0f, 1.0f) + *rec.normal))*0.5f));
+		auto albedo = rec.c;//EPIC::Color("F57C00");
 		auto p = *(*rec.position + *rec.normal) + *EPIC::Vec3<float>::random_unit_vector();
 		auto reflectedRay = std::make_shared<EPIC::Ray>(rec.position, *rec.position-*p);
 		auto c = rayTrace(reflectedRay, world, depth-1);
 
-		return std::make_shared<EPIC::Color>(*((*c)*0.5f));
+		return std::make_shared<EPIC::Color>(*((*c)*(*albedo)));
 	}
 
 	float y = (*(ray->direction()))[1];
 	float t = 0.5f*(y+1.0f);
 	auto white = std::make_shared<EPIC::Color>("FFFFFF");
-	auto main = std::make_shared<EPIC::Color>("03a9f4");
+	auto main = std::make_shared<EPIC::Color>("B2EBF2");
 	auto background = *((*main)*(1.0f-t)) + *((*white)*t);
 
 	
@@ -46,9 +46,14 @@ int main(){
 
 	// world
 	EPIC::HitList world;
-	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.0f, -1.0f), 0.5f));
-	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.5f, 0.2f, -1.5f), 0.2f));
-	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 100.5f, -1.0f), 100.0f));
+
+	auto color1 = std::make_shared<EPIC::Color>("212121");
+	auto color2 = std::make_shared<EPIC::Color>("F57C00");
+	auto color3 = std::make_shared<EPIC::Color>("536DFE");
+
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.0f, -1.0f), 0.5f, color2));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.5f, 0.2f, -1.5f), 0.2f, color3));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 100.5f, -1.0f), 100.0f, color1));
 
 
 	//camera

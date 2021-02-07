@@ -10,11 +10,10 @@ namespace EPIC{
 	struct HitRecord{
 		std::shared_ptr<Vec3<float>> position;
 		std::shared_ptr<Vec3<float>> normal;
+		std::shared_ptr<Color> c;
 		float t;
 
-		HitRecord(){
-			position = nullptr;
-			normal = nullptr;
+		HitRecord():position(nullptr), normal(nullptr), c(nullptr){
 			t = INFINITY;
 		}
 	};
@@ -48,6 +47,7 @@ namespace EPIC{
 						hit_something = true;
 						closest_so_far = temp_rec.t;
 						record = temp_rec;
+						
 					}
 				}
 			}

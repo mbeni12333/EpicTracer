@@ -2,7 +2,6 @@
 #include <fstream>
 #include "Vec3.h"
 #include "Color.h"
-#include "Vec3.cpp"
 
 namespace EPIC{
 
