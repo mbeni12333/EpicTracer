@@ -92,12 +92,15 @@ namespace EPIC{
 											 m_data[2]/this->norm());
 		};
 
-		inline float dot(const Vec3<T>& v){
+		inline float dot(const Vec3<T>& v) const{
 			return m_data[0]*v[0]+
 				m_data[1]*v[1]+
 				m_data[2]*v[2];
 		};
 		 
+		inline static std::shared_ptr<Vec3<T>> reflect(const Vec3<T>& in, const Vec3<T>& normal){
+			return in - *(normal*(in.dot(normal)*2.0f));
+		}
 
 		protected:
 		T m_data[3];

@@ -5,7 +5,10 @@ namespace EPIC{
 	class Ray{
 
 		public:
+
+		Ray():m_direction(nullptr), m_origin(nullptr){}
 		Ray(std::shared_ptr<Vec3<float>> origin, std::shared_ptr<Vec3<float>> direction){
+			norm = direction->norm();
 			m_direction = direction->normalize();
 			m_origin = origin;
 
@@ -18,9 +21,12 @@ namespace EPIC{
 			return *(*(m_direction)*dist) + (*m_origin);
 		}
 	
+		float norm;
+
 		private:
 		std::shared_ptr<Vec3<float>> m_direction;
 		std::shared_ptr<Vec3<float>> m_origin;
+		
 	};
 }
 

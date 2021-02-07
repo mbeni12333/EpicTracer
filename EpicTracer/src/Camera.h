@@ -12,7 +12,7 @@ namespace EPIC{
 		std::shared_ptr<EPIC::Ray> getRay(int i, int j) const;
 
 
-		private:
+		//private:
 
 		float fov;
 

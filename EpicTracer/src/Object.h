@@ -1,19 +1,22 @@
 #pragma once
 #include "Vec3.h"
-#include "Material.h"
 #include "Ray.h"
 #include <vector>
 #include <memory>
 
+
+
 namespace EPIC{
+
+	class Material;
 
 	struct HitRecord{
 		std::shared_ptr<Vec3<float>> position;
 		std::shared_ptr<Vec3<float>> normal;
-		std::shared_ptr<Color> c;
+		std::shared_ptr<Material> m_material;
 		float t;
 
-		HitRecord():position(nullptr), normal(nullptr), c(nullptr){
+		HitRecord():position(nullptr), normal(nullptr), m_material(nullptr){
 			t = INFINITY;
 		}
 	};

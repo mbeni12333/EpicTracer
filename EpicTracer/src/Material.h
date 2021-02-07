@@ -1,21 +1,57 @@
 #pragma once
 #include "Color.h"
 #include "Object.h"
+#include "core.h"
+#include "Ray.h"
+#include "Vec3.h"
 
 namespace EPIC{
 
 
 	class Material{
-		virtual void scatter(const Vec3<float>& point) const = 0;
+		public:
+		virtual bool scatter(const Ray& in, const struct HitRecord& rec, Color& attenuation, Ray& out) const = 0;
 	};
 
 
-	class UniformMaterial: public Material{
+	class Lambertian: public Material{
 		
+		public:
 
-		virtual void scatter(const Vec3<float>& point) const override{
-			//ht.position = point;
-			//ht.material = this;
+		Lambertian(const Color& c): albedo(c){}
+
+		virtual bool scatter(const Ray& in, const struct HitRecord& rec, Color& attenuation, Ray& out) const override{
+			
+
+			auto scatter_direction = *rec.normal + *Vec3<float>::random_unit_vector();
+			out = *std::make_shared<EPIC::Ray>(rec.position, *rec.position-*scatter_direction);
+			attenuation = albedo;
+			return true;
+		}
+
+		private:
+		Color albedo;
+	};
+
+
+	class Metal: public Material{
+
+		public: 
+		Metal(const Color& c): albedo(c){}
+
+		virtual bool scatter(const Ray& in, const struct HitRecord& rec, Color& attenuation, Ray& out) const override{
+
+			auto reflected = Vec3<float>::reflect(*(*in.direction()*in.norm), *rec.normal);
+			out = *std::make_shared<EPIC::Ray>(rec.position, reflected);
+			attenuation = albedo;
+
+			auto cond = (*in.direction()*in.norm)->dot(*rec.normal);
+			//std::cout<<cond<<std::endl;
+
+			/*if(cond<=0){
+				std::cout<<"NO"<<std::endl;
+			}*/
+			return cond > 0;
 		}
 
 		private:

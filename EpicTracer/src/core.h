@@ -5,8 +5,8 @@
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define HEIGHT 1080
 #define WIDTH 1920
-#define MAX_DEPTH 30
-#define SAMPLES_PER_PIXEL 120
+#define MAX_DEPTH 60
+#define SAMPLES_PER_PIXEL 200
 
 #include <random>
 

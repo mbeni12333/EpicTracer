@@ -7,8 +7,13 @@
 #include "Sphere.h"
 #include "Object.h"
 #include "Camera.h"
+#include "Material.h"
 #include <iomanip>
+#include "LightSource.h"
 
+
+auto light = EPIC::LightSource();
+EPIC::Camera camera(WIDTH, HEIGHT);
 
 
 std::shared_ptr<EPIC::Color> rayTrace(std::shared_ptr<EPIC::Ray> ray, const EPIC::HitList& world, int depth){
@@ -19,22 +24,26 @@ std::shared_ptr<EPIC::Color> rayTrace(std::shared_ptr<EPIC::Ray> ray, const EPIC
 	}
 	
 	EPIC::HitRecord rec;
-	if(world.hit(ray, 0.0001f, 100000.0f, rec)){
-		//return EPIC::Color("FFC107");
-		//return std::make_shared<EPIC::Color>(*((*(EPIC::Vec3<float>(1.0f, 1.0f, 1.0f) + *rec.normal))*0.5f));
-		auto albedo = rec.c;//EPIC::Color("F57C00");
-		auto p = *(*rec.position + *rec.normal) + *EPIC::Vec3<float>::random_unit_vector();
-		auto reflectedRay = std::make_shared<EPIC::Ray>(rec.position, *rec.position-*p);
-		auto c = rayTrace(reflectedRay, world, depth-1);
+	if(world.hit(ray, 0.001f, 100000.0f, rec)){
 
-		return std::make_shared<EPIC::Color>(*((*c)*(*albedo)));
+		auto material = rec.m_material;//EPIC::Color("F57C00");
+		auto reflectedRay = std::make_shared<EPIC::Ray>();
+		auto attenuation = std::make_shared<EPIC::Color>();
+
+		if(material->scatter(*ray, rec, *attenuation, *reflectedRay)){
+			auto c = rayTrace(reflectedRay, world, depth-1);
+			return std::make_shared<EPIC::Color>(*(*attenuation * *c));
+		}
+
+		return std::make_shared<EPIC::Color>("000000");
 	}
 
-	float y = (*(ray->direction()))[1];
-	float t = 0.5f*(y+1.0f);
-	auto white = std::make_shared<EPIC::Color>("FFFFFF");
+	float y = (*(ray->direction()))[0];
+	float t = 0.9f*(y+1.0f);
+	auto white = std::make_shared<EPIC::Color>("ffffff");
 	auto main = std::make_shared<EPIC::Color>("B2EBF2");
-	auto background = *((*main)*(1.0f-t)) + *((*white)*t);
+	auto background = *((*white)*(1.0f-t)) + *((*main)*t);
+
 
 	
 
@@ -47,17 +56,31 @@ int main(){
 	// world
 	EPIC::HitList world;
 
-	auto color1 = std::make_shared<EPIC::Color>("212121");
-	auto color2 = std::make_shared<EPIC::Color>("F57C00");
-	auto color3 = std::make_shared<EPIC::Color>("536DFE");
+	auto color1 = std::make_shared<EPIC::Color>("212121"); // plan
+	auto color2 = std::make_shared<EPIC::Color>("CCCCCC"); // silver
+	auto color3 = std::make_shared<EPIC::Color>("536DFE"); // zerga
+	auto color4 = std::make_shared<EPIC::Color>("E91E63"); // rose
+	auto color5 = std::make_shared<EPIC::Color>("CDDC39"); // khedhra
 
-	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.0f, -1.0f), 0.5f, color2));
-	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.5f, 0.2f, -1.5f), 0.2f, color3));
-	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 100.5f, -1.0f), 100.0f, color1));
+
+	auto lambertian1 = std::make_shared<EPIC::Lambertian>(*color1);
+	auto lambertian2 = std::make_shared<EPIC::Metal>(*color2);
+	auto lambertian3 = std::make_shared<EPIC::Metal>(*color3);
+	auto lambertian4 = std::make_shared<EPIC::Lambertian>(*color4);
+	auto lambertian5 = std::make_shared<EPIC::Metal>(*color5);
+
+
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-1000.0f, 0.0f, -1000.0f), 1000.0f, lambertian1));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.7f, 0.1f, -1.2f), 0.3f, lambertian4));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-0.75f, 0.0f, 1.0f), 0.5f, lambertian5));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.7f, 0.1f, -1.2f), 0.3f, lambertian4));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.0f, -1.0f), 0.3f, lambertian3));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.3f, -0.1f, -1.5f), 0.2f, lambertian2));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 100.5f, -1.0f), 100.0f, lambertian1));
 
 
 	//camera
-	EPIC::Camera camera(WIDTH, HEIGHT);
+
 	EPIC::Image img(WIDTH, HEIGHT);
 
 	auto total_steps = HEIGHT*WIDTH;
