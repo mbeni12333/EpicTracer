@@ -5,12 +5,18 @@
 #include "Ray.h"
 #include "Vec3.h"
 
+
+
+
 namespace EPIC{
 
+
+	enum material_type { LIGHT_MATERIAL=0, NOT_LIGHT_MATERIAL };
 
 	class Material{
 		public:
 		virtual bool scatter(const Ray& in, const struct HitRecord& rec, Color& attenuation, Ray& out) const = 0;
+		material_type type;
 	};
 
 
@@ -18,7 +24,9 @@ namespace EPIC{
 		
 		public:
 
-		Lambertian(const Color& c): albedo(c){}
+		Lambertian(const Color& c): albedo(c){
+			type = NOT_LIGHT_MATERIAL;
+		}
 
 		virtual bool scatter(const Ray& in, const struct HitRecord& rec, Color& attenuation, Ray& out) const override{
 			
@@ -31,13 +39,16 @@ namespace EPIC{
 
 		private:
 		Color albedo;
+
 	};
 
 
 	class Metal: public Material{
 
 		public: 
-		Metal(const Color& c): albedo(c){}
+		Metal(const Color& c): albedo(c){
+			type = NOT_LIGHT_MATERIAL;
+		}
 
 		virtual bool scatter(const Ray& in, const struct HitRecord& rec, Color& attenuation, Ray& out) const override{
 
@@ -55,6 +66,23 @@ namespace EPIC{
 		}
 
 		private:
+		Color albedo;
+	};
+
+
+	class LightMat : public Material {
+
+	public:
+		LightMat(const Color& c) : albedo(c) {
+			type = LIGHT_MATERIAL;
+		}
+
+		virtual bool scatter(const Ray& in, const struct HitRecord& rec, Color& attenuation, Ray& out) const override {
+			attenuation = albedo;
+			return true;
+		}
+
+	private:
 		Color albedo;
 	};
 

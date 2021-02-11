@@ -3,10 +3,10 @@
 #define DEFAULT_COLOR std::string("7B1FA2")
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
-#define HEIGHT 1080
-#define WIDTH 1920
-#define MAX_DEPTH 60
-#define SAMPLES_PER_PIXEL 200
+#define HEIGHT 720
+#define WIDTH 1280
+#define MAX_DEPTH 50
+#define SAMPLES_PER_PIXEL 100
 
 #include <random>
 

@@ -31,11 +31,17 @@ std::shared_ptr<EPIC::Color> rayTrace(std::shared_ptr<EPIC::Ray> ray, const EPIC
 		auto attenuation = std::make_shared<EPIC::Color>();
 
 		if(material->scatter(*ray, rec, *attenuation, *reflectedRay)){
-			auto c = rayTrace(reflectedRay, world, depth-1);
-			return std::make_shared<EPIC::Color>(*(*attenuation * *c));
+
+			if (material->type == EPIC::LIGHT_MATERIAL) {
+				return attenuation;
+			}
+			else {
+				auto c = rayTrace(reflectedRay, world, depth - 1);
+				return std::make_shared<EPIC::Color>(*(*attenuation * *c));
+			}
 		}
 
-		return std::make_shared<EPIC::Color>("000000");
+		return std::make_shared<EPIC::Color>("111111");
 	}
 
 	float y = (*(ray->direction()))[0];
@@ -46,7 +52,7 @@ std::shared_ptr<EPIC::Color> rayTrace(std::shared_ptr<EPIC::Ray> ray, const EPIC
 
 
 	
-
+	//return std::make_shared<EPIC::Color>("000000");
 	return std::make_shared<EPIC::Color>(*background);
 }
 
@@ -68,6 +74,7 @@ int main(){
 	auto lambertian3 = std::make_shared<EPIC::Metal>(*color3);
 	auto lambertian4 = std::make_shared<EPIC::Lambertian>(*color4);
 	auto lambertian5 = std::make_shared<EPIC::Metal>(*color5);
+	auto lightColor = std::make_shared<EPIC::LightMat>(*color2);
 
 
 	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-1000.0f, 0.0f, -1000.0f), 1000.0f, lambertian1));
@@ -77,7 +84,13 @@ int main(){
 	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.0f, -1.0f), 0.3f, lambertian3));
 	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.3f, -0.1f, -1.5f), 0.2f, lambertian2));
 	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 100.5f, -1.0f), 100.0f, lambertian1));
+	
 
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, -30.0f, 120.0f), 100.0f, lambertian1));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-105.0f, 0.0, -1.0f), 100.0f, lambertian1));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, -107.5f, -1.0f), 100.0f, lightColor));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(102.0f, 103.0f, -1.0f), 100.0f, lambertian1));
+	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.0f, -120.0f), 100.0f, lambertian1));
 
 	//camera
 

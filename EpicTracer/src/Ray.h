@@ -6,7 +6,7 @@ namespace EPIC{
 
 		public:
 
-		Ray():m_direction(nullptr), m_origin(nullptr){}
+		Ray(){}
 		Ray(std::shared_ptr<Vec3<float>> origin, std::shared_ptr<Vec3<float>> direction){
 			norm = direction->norm();
 			m_direction = direction->normalize();
