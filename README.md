@@ -7,5 +7,8 @@ main features :
 - Depth of field
 - Antialiasing
 - OpenMP
+- Environement map
 
 ![render](imgs/render.png)
+
+![render](imgs/renderEpic.png)
