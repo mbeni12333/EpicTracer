@@ -7,6 +7,12 @@ project "EpicTracer"
    targetdir "../bin/%{outputdir}"
    objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
 
+   postbuildcommands{
+   	"{COPY} ressources %{cfg.targetdir}/ressources",
+   }
+
+   includedirs {"../vendor/stb/include"}
+
    files { "src/**.h", "src/**.cpp" }
 
    filter "configurations:Debug"

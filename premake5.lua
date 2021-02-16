@@ -7,7 +7,12 @@ workspace "EpicTracer"
 		"Debug",
 		"Release"
 	}
-	
+
+	configuration { "vs*",  "release" }
+		buildoptions { "/openmp" }
+	configuration { "gmake",  "release" }
+		buildoptions { "-fopenmp" }		
+		links { "gomp" }
 	flags{
 		"MultiProcessorCompile"
 	}

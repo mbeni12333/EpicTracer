@@ -3,6 +3,7 @@
 #include <random>
 #include "core.h"
 #include <math.h>
+#include <memory>
 
 namespace EPIC{
 

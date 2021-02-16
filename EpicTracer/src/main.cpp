@@ -17,11 +17,8 @@
 
 
 
-EPIC::Image bg("ressources/background6.hdr");
+EPIC::Image bg("ressources/background.hdr");
 
-
-
-auto light = EPIC::LightSource();
 
 auto p = EPIC::Vec3<float>(-1.9f, 1.2f, -3.0f);
 auto p2 = EPIC::Vec3<float>(-2.9f, 1.5f, 4.54f);
@@ -65,35 +62,20 @@ std::shared_ptr<EPIC::Color> rayTrace(std::shared_ptr<EPIC::Ray> ray, const EPIC
 	float x = (*(ray->direction()))[0];
 	float y = (*(ray->direction()))[1];
 	float z = (*(ray->direction()))[2];
-	//float t = 0.9f*(y+1.0f);
-	//auto white = std::make_shared<EPIC::Color>("ffffff");
-	//auto main = std::make_shared<EPIC::Color>("B2EBF2");
-	//auto background = *((*white)*(1.0f-t)) + *((*main)*t);
-
-	//background->hit(ray, -INFINITY, +INFINITY, rec);
-
-	//float x = (*(rec.position))[0];
-	//float y = (*(rec.position))[1];
-	//float z = (*(rec.position))[2];
-
-	//float r = sqrt(x*x+y*y+z*z);
-	//std::cout<<<<std::endl;
 
 	auto phi = atan2(-z, x) + M_PI;
 	auto theta = acos(-y);
-
 
 	x = phi/(2*M_PI);
 	y = theta/M_PI;
 
 	x = clamp(x, 0.0f, 1.0f);
 	y = 1.0-clamp(y, 0.0f, 1.0f);
-	//std::cout<<x + 2048<<" "<<y+1080<<std::endl;
+
 	int i = floor(y*2160);
 	int j = floor(x*4096);
 
 	return bg.getPixel(i, j);
-	//return std::make_shared<EPIC::Color>(*background);
 }
 
 
@@ -126,22 +108,11 @@ int main(){
 
 	// background
 	
-	//auto background = std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.0f, 0.0f), 10.0f, lambertian1);
-
 
 	// flooor
 	world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, -300.0f, 1.0f), 300.0f, lambertian1));
 	
-	
-	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-8.25f, 5.0f, 10.05), 1.7f, lightColor));
-	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 15.0f, 7.0f), 5.0f, lightColor));
-	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(+6.35f, -0.5f, 4.0f), 1.3f, lightColor));
-	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-6.395f, -0.5f, -0.87f), 1.1f, lightColor));
-	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-8.5f, 3.0f, 2.0f), 1.5f, lightColor));
-	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(-0.875f, +0.8f, 2.0f), 0.1f, lightColor));
-	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 0.5f, -1.2f), 0.2f, lightColor));
-	
-	
+
 	////top
 	//world.add(std::make_shared<EPIC::Sphere>(std::make_shared<EPIC::Vec3<float>>(0.0f, 10011.0f, 0.0f), 10000.0f, lambertian1));
 	////left 
@@ -194,7 +165,7 @@ int main(){
 	}
 
 	
-	img.save("background.ppm");
+	img.save("render.ppm");
 	
 	return 0;
 }

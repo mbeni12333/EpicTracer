@@ -1,5 +1,6 @@
 #pragma once
 #include "Vec3.h"
+#include <memory>
 
 namespace EPIC{
 	class Ray{
