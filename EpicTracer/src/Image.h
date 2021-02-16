@@ -9,6 +9,7 @@ namespace EPIC{
 
 	public:
 		Image(int width, int height);
+		Image(const char* filepath);
 		Image(const Image& img);
 		std::shared_ptr<Color>& getPixel(int row, int col);
 		//std::vector<Color>::iterator getPixel(int row, int col);

@@ -24,13 +24,11 @@ namespace EPIC{
             y = z->cross(*x);
 
 
-            std::cout<<*x;
-            std::cout<<*y;
-            std::cout<<*z;
+            //std::cout<<*x;
+            //std::cout<<*y;
+            //std::cout<<*z;
 
             origin = lookfrom;
-
-
 
 
             horizontal = *(*x*(focus_dist*viewport_width*2.0f));
@@ -38,7 +36,7 @@ namespace EPIC{
 
 
             lower_left_corner = *(*(*(origin-*(horizontal*0.5f))-*(vertical*0.5f))-*(*z*focus_dist));
-            std::cout<<lower_left_corner;
+            //std::cout<<lower_left_corner;
             /*
             horizontal_unit_vec = *(horizontal_unit_vec*viewport_width);
             vertical_unit_vec = *(horizontal_unit_vec*viewport_height);

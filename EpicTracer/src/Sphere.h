@@ -57,9 +57,8 @@ namespace EPIC{
 		}
 
 		//inline std::shared_ptr<Color> getColor(){ return m_c; };
-
-		private:
 		float m_radius;
+		protected:
 		std::shared_ptr<Material> m_material;
 	};
 }
